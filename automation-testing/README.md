@@ -8,6 +8,11 @@ This folder contains the Playwright JavaScript automation framework for testing 
 - JavaScript
 - Node.js
 
+## Stability Note
+
+Some tests may appear as flaky because the target public website shows ads and has inconsistent loading behavior.  
+Retries and stable locator strategies were added to improve reliability.
+
 ## Project Structure
 
 ```text
@@ -20,3 +25,4 @@ automation-testing
 ├── package.json
 ├── package-lock.json
 └── playwright.config.js
+
