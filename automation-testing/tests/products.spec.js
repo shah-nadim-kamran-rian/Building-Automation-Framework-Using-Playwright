@@ -1,22 +1,20 @@
 const { test, expect } = require('@playwright/test');
-const { AutomationExercisePage } = require('../pages/AutomationExercisePage');
-const testData = require('../test-data/userData');
 
 test('PROD_012 - Search with valid keyword returns results', async ({ page }) => {
-  const app = new AutomationExercisePage(page);
+  await page.route(/googlesyndication|doubleclick|googleadservices|adservice|pagead/, route =>
+    route.abort()
+  );
 
-  await app.openHomePage();
-  await page.waitForTimeout(2000);
+  await page.goto('https://automationexercise.com/products');
 
-  await app.closeAdIfVisible();
-  await app.goToProducts();
-  await page.waitForTimeout(2000);
+  await expect(page.locator('body')).toContainText('All Products');
 
-  await app.closeAdIfVisible();
-  await app.searchProduct(testData.searchKeyword);
-  await page.waitForTimeout(2000);
+  await page.locator('#search_product').fill('Dress');
+  await page.locator('#submit_search').click();
 
-  await expect(app.searchedProductsTitle).toBeVisible();
-  const results = page.locator('.product-image-wrapper');
-  await expect(results.first()).toBeVisible();
+  await expect(page.locator('body')).toContainText('Searched Products');
+
+  const productCards = page.locator('.features_items .product-image-wrapper');
+
+  await expect(productCards.first()).toBeVisible({ timeout: 15000 });
 });
