@@ -1,4 +1,4 @@
-# Playwright JavaScript Automation Framework for Automation Exercise
+# Playwright JavaScript Automation Framework for Automation Exercise Website
 
 ## Overview
 
